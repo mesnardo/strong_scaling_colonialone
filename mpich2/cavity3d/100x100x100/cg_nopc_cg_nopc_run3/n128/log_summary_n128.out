@@ -1,0 +1,251 @@
+
+---------------------------------------
+Flow
+---------------------------------------
+solver: Navier-Stokes
+viscosity: 0.01
+
+---------------------------------------
+Mesh
+---------------------------------------
+size: 100 x 100 x 100
+
+---------------------------------------
+Time-stepping
+---------------------------------------
+convection: 2nd-order Adams-Bashforth
+diffusion : Crank-Nicolson
+time-increment      : 0.0025
+starting time-step  : 0
+number of time-steps: 50
+saving-interval     : 100
+
+---------------------------------------
+Linear system for intermediate velocity
+---------------------------------------
+solver: cg
+preconditioner: none
+relative tolerance: 1e-06
+absolute tolerance: 1e-50
+maximum iterations: 10000
+
+---------------------------------------
+Linear system for pressure-force
+---------------------------------------
+solver: cg
+preconditioner: none
+relative tolerance: 1e-06
+absolute tolerance: 1e-50
+maximum iterations: 20000
+
+---------------------------------------
+************************************************************************************************************************
+***             WIDEN YOUR WINDOW TO 120 CHARACTERS.  Use 'enscript -r -fCourier9' to print this document            ***
+************************************************************************************************************************
+
+---------------------------------------------- PETSc Performance Summary: ----------------------------------------------
+
+/home/mesnardo/src/PetIBM/bin/PetIBM3d on a linux-mpich2-gnu-opt named node109 with 128 processors, by mesnardo Wed Jun  3 07:01:30 2015
+Using Petsc Release Version 3.5.2, Sep, 08, 2014 
+
+                         Max       Max/Min        Avg      Total 
+Time (sec):           8.984e+01      1.00001   8.984e+01
+Objects:              2.340e+02      1.00000   2.340e+02
+Flops:                3.326e+09      1.10057   3.181e+09  4.071e+11
+Flops/sec:            3.702e+07      1.10058   3.540e+07  4.532e+09
+MPI Messages:         9.973e+04      2.03974   7.824e+04  1.001e+07
+MPI Message Lengths:  3.389e+08      2.08667   3.448e+03  3.453e+10
+MPI Reductions:       7.774e+04      1.00000
+
+Flop counting convention: 1 flop = 1 real number operation of type (multiply/divide/add/subtract)
+                            e.g., VecAXPY() for real vectors of length N --> 2N flops
+                            and VecAXPY() for complex vectors of length N --> 8N flops
+
+Summary of Stages:   ----- Time ------  ----- Flops -----  --- Messages ---  -- Message Lengths --  -- Reductions --
+                        Avg     %Total     Avg     %Total   counts   %Total     Avg         %Total   counts   %Total 
+ 0:      Main Stage: 5.0698e-02   0.1%  0.0000e+00   0.0%  0.000e+00   0.0%  0.000e+00        0.0%  0.000e+00   0.0% 
+ 1:      initialize: 6.4047e-01   0.7%  1.1214e+08   0.0%  3.398e+04   0.3%  4.006e+00        0.1%  1.330e+02   0.2% 
+ 2:     RHSVelocity: 1.1327e+01  12.6%  2.9700e+08   0.1%  3.108e+05   3.1%  3.344e+01        1.0%  0.000e+00   0.0% 
+ 3:   solveVelocity: 3.9841e+01  44.3%  1.8023e+10   4.4%  1.593e+05   1.6%  1.622e+02        4.7%  7.360e+02   0.9% 
+ 4:      RHSPoisson: 4.1483e-02   0.0%  6.4400e+08   0.2%  1.520e+04   0.2%  5.192e+00        0.2%  0.000e+00   0.0% 
+ 5:    solvePoisson: 3.6161e+01  40.2%  3.8747e+11  95.2%  9.480e+06  94.7%  3.238e+03       93.9%  6.237e+04  80.2% 
+ 6:  projectionStep: 3.7481e-02   0.0%  5.9400e+08   0.1%  1.520e+04   0.2%  5.192e+00        0.2%  0.000e+00   0.0% 
+
+------------------------------------------------------------------------------------------------------------------------
+See the 'Profiling' chapter of the users' manual for details on interpreting output.
+Phase summary info:
+   Count: number of times phase was executed
+   Time and Flops: Max - maximum over all processors
+                   Ratio - ratio of maximum to minimum over all processors
+   Mess: number of messages sent
+   Avg. len: average message length (bytes)
+   Reduct: number of global reductions
+   Global: entire computation
+   Stage: stages of a computation. Set stages with PetscLogStagePush() and PetscLogStagePop().
+      %T - percent time in this phase         %F - percent flops in this phase
+      %M - percent messages in this phase     %L - percent message lengths in this phase
+      %R - percent reductions in this phase
+   Total Mflop/s: 10e-6 * (sum of flops over all processors)/(max time over all processors)
+------------------------------------------------------------------------------------------------------------------------
+Event                Count      Time (sec)     Flops                             --- Global ---  --- Stage ---   Total
+                   Max Ratio  Max     Ratio   Max  Ratio  Mess   Avg len Reduct  %T %F %M %L %R  %T %F %M %L %R Mflop/s
+------------------------------------------------------------------------------------------------------------------------
+
+--- Event Stage 0: Main Stage
+
+
+--- Event Stage 1: initialize
+
+VecSet                15 1.0 7.0763e-04 1.7 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecScatterBegin        8 1.0 1.1880e-03 2.9 0.00e+00 0.0 1.4e+04 1.6e+03 0.0e+00  0  0  0  0  0   0  0 40 54  0     0
+VecScatterEnd          8 1.0 4.5589e-01 2.2 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0  35  0  0  0  0     0
+MatScale               4 1.0 2.4801e-01116.6 7.31e+05 1.2 6.1e+02 1.0e+04 0.0e+00  0  0  0  0  0   2 79  2 15  0   356
+MatAssemblyBegin       8 1.0 2.8423e-02 2.7 0.00e+00 0.0 9.1e+02 2.3e+03 1.2e+01  0  0  0  0  0   4  0  3  5  9     0
+MatAssemblyEnd         8 1.0 2.4974e-02 1.3 0.00e+00 0.0 3.6e+03 1.4e+03 3.2e+01  0  0  0  0  0   4  0 11 13 24     0
+MatTranspose           1 1.0 1.2503e-02 1.0 0.00e+00 0.0 2.4e+03 1.5e+03 1.3e+01  0  0  0  0  0   2  0  7  9 10     0
+MatMatMult             1 1.0 1.8647e-02 1.0 1.95e+05 1.1 2.4e+03 2.8e+03 1.6e+01  0  0  0  0  0   3 21  7 17 12  1274
+MatMatMultSym          1 1.0 1.5586e-02 1.0 0.00e+00 0.0 2.1e+03 2.2e+03 1.4e+01  0  0  0  0  0   2  0  6 12 11     0
+MatMatMultNum          1 1.0 3.0532e-03 1.1 1.95e+05 1.1 3.0e+02 6.8e+03 2.0e+00  0  0  0  0  0   0 21  1  5  2  7782
+MatGetLocalMat         2 1.0 1.8761e-03 1.3 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+MatGetBrAoCol          2 1.0 5.2633e-0323.6 0.00e+00 0.0 1.2e+03 4.7e+03 0.0e+00  0  0  0  0  0   0  0  4 14  0     0
+SFSetGraph             1 1.0 3.9101e-0541.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+SFReduceBegin          1 1.0 1.0149e-03 2.6 0.00e+00 0.0 9.1e+02 1.1e+03 1.0e+00  0  0  0  0  0   0  0  3  3  1     0
+SFReduceEnd            1 1.0 6.9308e-04100.2 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+generateQTBNQ          1 1.0 1.8650e-02 1.0 1.95e+05 1.1 2.4e+03 2.8e+03 1.6e+01  0  0  0  0  0   3 21  7 17 12  1274
+
+--- Event Stage 2: RHSVelocity
+
+VecSet                50 1.0 2.6598e-03 2.5 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecWAXPY              50 1.0 3.7329e-03 2.3 1.22e+06 1.1 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0 50  0  0  0 39781
+VecPointwiseMult      50 1.0 3.6826e-03 2.6 1.22e+06 1.1 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0 50  0  0  0 40325
+VecScatterBegin      150 1.0 2.2531e-02 3.0 0.00e+00 0.0 3.1e+05 1.1e+03 0.0e+00  0  0  3  1  0   0  0100100  0     0
+VecScatterEnd        150 1.0 1.1927e+01 1.3 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00 12  0  0  0  0  98  0  0  0  0     0
+
+--- Event Stage 3: solveVelocity
+
+VecTDot              424 1.0 3.7497e+01 1.2 2.07e+07 1.1 0.0e+00 0.0e+00 4.2e+02 40  1  0  0  1  91 14  0  0 58    67
+VecNorm              312 1.0 1.8375e+00 2.4 1.52e+07 1.1 0.0e+00 0.0e+00 3.1e+02  1  0  0  0  0   3 10  0  0 42  1009
+VecCopy              362 1.0 8.9006e-03 1.4 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecAXPY              424 1.0 1.8616e-02 1.7 2.07e+07 1.1 0.0e+00 0.0e+00 0.0e+00  0  1  0  0  0   0 14  0  0  0 135292
+VecAYPX              212 1.0 6.3632e-03 1.3 9.12e+06 1.1 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  6  0  0  0 174564
+VecScatterBegin      262 1.0 2.3687e-02 2.8 0.00e+00 0.0 1.6e+05 1.0e+04 0.0e+00  0  0  2  5  0   0  0100100  0     0
+VecScatterEnd        262 1.0 7.0675e+0015.5 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  2  0  0  0  0   6  0  0  0  0     0
+MatMult              262 1.0 7.2187e+0012.8 8.30e+07 1.2 1.6e+05 1.0e+04 0.0e+00  3  2  2  5  0   6 56100100  0  1388
+KSPSetUp               1 1.0 3.9101e-04 1.4 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+KSPSolve              50 1.0 4.1899e+01 1.1 1.49e+08 1.2 1.6e+05 1.0e+04 7.4e+02 44  4  2  5  1 100100100100100   430
+PCSetUp                1 1.0 1.1921e-06 0.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+PCApply              312 1.0 6.7067e-03 1.3 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+
+--- Event Stage 4: RHSPoisson
+
+VecScale              50 1.0 3.0494e-04 1.4 4.06e+05 1.1 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   1  8  0  0  0 163968
+VecSet                50 1.0 1.1079e-03 2.2 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   2  0  0  0  0     0
+VecScatterBegin       50 1.0 1.5242e-0311.3 0.00e+00 0.0 1.5e+04 3.4e+03 0.0e+00  0  0  0  0  0   3  0100100  0     0
+VecScatterEnd         50 1.0 1.5340e-011772.5 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0  77  0  0  0  0     0
+MatMultAdd            50 1.0 1.6030e-0122.0 4.88e+06 1.1 1.5e+04 3.4e+03 0.0e+00  0  0  0  0  0  95 92100100  0  3705
+
+--- Event Stage 5: solvePoisson
+
+VecTDot            31084 1.0 2.5643e+01 4.8 5.05e+08 1.1 0.0e+00 0.0e+00 3.1e+04 13 15  0  0 40  31 16  0  0 50  2424
+VecNorm            15642 1.0 2.3736e+00 1.2 2.54e+08 1.1 0.0e+00 0.0e+00 1.6e+04  2  8  0  0 20   6  8  0  0 25 13180
+VecCopy            15692 1.0 6.9649e-02 1.2 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecAXPY            31084 1.0 2.5202e-01 1.2 5.05e+08 1.1 0.0e+00 0.0e+00 0.0e+00  0 15  0  0  0   1 16  0  0  0 246674
+VecAYPX            15542 1.0 1.3923e-01 1.2 2.52e+08 1.1 0.0e+00 0.0e+00 0.0e+00  0  8  0  0  0   0  8  0  0  0 222898
+VecScatterBegin    15592 1.0 5.5021e-01 2.9 0.00e+00 0.0 9.5e+06 3.4e+03 0.0e+00  0  0 95 94  0   1  0100100  0     0
+VecScatterEnd      15592 1.0 2.3492e+01 8.2 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00 19  0  0  0  0  48  0  0  0  0     0
+MatMult            15592 1.0 2.5214e+01 5.8 1.65e+09 1.1 9.5e+06 3.4e+03 0.0e+00 21 49 95 94  0  53 52100100  0  7965
+KSPSetUp               1 1.0 5.9843e-05 1.9 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+KSPSolve              50 1.0 3.6194e+01 1.0 3.16e+09 1.1 9.5e+06 3.4e+03 6.2e+04 40 95 95 94 80 100100100100100 10705
+PCSetUp                1 1.0 9.5367e-07 0.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+PCApply            15642 1.0 7.4228e-02 1.2 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+
+--- Event Stage 6: projectionStep
+
+VecWAXPY              50 1.0 5.6074e-03 2.8 1.22e+06 1.1 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   7 25  0  0  0 26483
+VecScatterBegin       50 1.0 1.5421e-0314.8 0.00e+00 0.0 1.5e+04 3.4e+03 0.0e+00  0  0  0  0  0   2  0100100  0     0
+VecScatterEnd         50 1.0 6.3440e-02641.2 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0  58  0  0  0  0     0
+MatMult               50 1.0 7.8867e-02 7.5 3.66e+06 1.1 1.5e+04 3.4e+03 0.0e+00  0  0  0  0  0  92 75100100  0  5649
+------------------------------------------------------------------------------------------------------------------------
+
+Memory usage is given in bytes:
+
+Object Type          Creations   Destructions     Memory  Descendants' Mem.
+Reports information only for process 0.
+
+--- Event Stage 0: Main Stage
+
+              Vector     0             44      4656312     0
+      Vector Scatter     0             12       272720     0
+              Matrix     0             14      6109216     0
+   Matrix Null Space     0              1          596     0
+    Distributed Mesh     0              6        28464     0
+Star Forest Bipartite Graph     0             12         9600     0
+     Discrete System     0              6         4752     0
+   IS L to G Mapping     0              4       177312     0
+       Krylov Solver     0              2         2448     0
+      Preconditioner     0              2         1648     0
+              Viewer     2              1          744     0
+
+--- Event Stage 1: initialize
+
+              Vector    50             12        18560     0
+      Vector Scatter    12              0            0     0
+              Matrix    14              0            0     0
+   Matrix Null Space     1              0            0     0
+    Distributed Mesh     6              0            0     0
+Star Forest Bipartite Graph    13              1          856     0
+     Discrete System     6              0            0     0
+           Index Set    16             16       189212     0
+   IS L to G Mapping     4              0            0     0
+       Krylov Solver     2              0            0     0
+      Preconditioner     2              0            0     0
+
+--- Event Stage 2: RHSVelocity
+
+
+--- Event Stage 3: solveVelocity
+
+              Vector    53             50      9828400     0
+
+--- Event Stage 4: RHSPoisson
+
+
+--- Event Stage 5: solvePoisson
+
+              Vector    53             50      3328400     0
+
+--- Event Stage 6: projectionStep
+
+========================================================================================================================
+Average time to get PetscTime(): 9.53674e-08
+Average time for MPI_Barrier(): 0.000111628
+Average time for zero size MPI_Send(): 3.07895e-06
+#PETSc Option Table entries:
+-caseFolder .
+-log_summary
+-sys1_pc_type none
+-sys2_pc_type none
+#End of PETSc Option Table entries
+Compiled without FORTRAN kernels
+Compiled with full precision matrices (default)
+sizeof(short) 2 sizeof(int) 4 sizeof(long) 8 sizeof(void*) 8 sizeof(PetscScalar) 8 sizeof(PetscInt) 4
+Configure options: COPTFLAGS=-O3 CXXOPTFLAGS=-O3 FOPTFLAGS=-O3 --PETSC_ARCH=linux-mpich2-gnu-opt --with-debugging=0 --with-mpi-dir=/cm/shared/apps/mpich2/ge/gcc/64/1.4.1p1/bin --with-blas-lib=/c1/apps/blas/gcc/1/lib64/libblas.a --with-lapack-lib=/c1/apps/lapack/gcc/3.4.1/lib/liblapack.a --with-shared-libraries=0
+-----------------------------------------
+Libraries compiled on Thu May 28 11:06:57 2015 on login3.colonialone.gwu.edu 
+Machine characteristics: Linux-2.6.32-504.12.2.el6.x86_64-x86_64-with-redhat-6.6-Santiago
+Using PETSc directory: /home/mesnardo/src/petsc/3.5.2
+Using PETSc arch: linux-mpich2-gnu-opt
+-----------------------------------------
+
+Using C compiler: mpicc  -Wall -Wwrite-strings -Wno-strict-aliasing -Wno-unknown-pragmas -O3  ${COPTFLAGS} ${CFLAGS}
+Using Fortran compiler: mpif90  -Wall -Wno-unused-variable -ffree-line-length-0 -Wno-unused-dummy-argument -O3   ${FOPTFLAGS} ${FFLAGS} 
+-----------------------------------------
+
+Using include paths: -I/home/mesnardo/src/petsc/3.5.2/linux-mpich2-gnu-opt/include -I/home/mesnardo/src/petsc/3.5.2/include -I/home/mesnardo/src/petsc/3.5.2/include -I/home/mesnardo/src/petsc/3.5.2/linux-mpich2-gnu-opt/include -I/cm/shared/apps/mpich2/ge/gcc/64/1.4.1p1/bin/include -I/cm/shared/apps/mpich2/ge/gcc/64/1.4.1p1/include
+-----------------------------------------
+
+Using C linker: mpicc
+Using Fortran linker: mpif90
+Using libraries: -Wl,-rpath,/home/mesnardo/src/petsc/3.5.2/linux-mpich2-gnu-opt/lib -L/home/mesnardo/src/petsc/3.5.2/linux-mpich2-gnu-opt/lib -lpetsc -Wl,-rpath,/c1/apps/lapack/gcc/3.4.1/lib -L/c1/apps/lapack/gcc/3.4.1/lib -llapack -Wl,-rpath,/c1/apps/blas/gcc/1/lib64 -L/c1/apps/blas/gcc/1/lib64 -lblas -lX11 -lpthread -lssl -lcrypto -lm -L/cm/shared/apps/mpich2/ge/gcc/64/1.4.1p1/lib -L/cm/shared/apps/gcc/4.7.0/lib/gcc/x86_64-unknown-linux-gnu/4.7.0 -L/cm/shared/apps/gcc/4.7.0/lib64 -L/cm/shared/apps/gcc/4.7.0/lib -lmpichf90 -lgfortran -lm -Wl,-rpath,/cm/shared/apps/mpich2/ge/gcc/64/1.4.1p1/lib -lgfortran -lm -lquadmath -lm -lmpichcxx -lstdc++ -L/cm/shared/apps/mpich2/ge/gcc/64/1.4.1p1/lib -L/cm/shared/apps/gcc/4.7.0/lib/gcc/x86_64-unknown-linux-gnu/4.7.0 -L/cm/shared/apps/gcc/4.7.0/lib64 -L/cm/shared/apps/gcc/4.7.0/lib -ldl -Wl,-rpath,/cm/shared/apps/mpich2/ge/gcc/64/1.4.1p1/lib -lmpich -lopa -lmpl -lrt -lpthread -lgcc_s -ldl  
+-----------------------------------------
+
