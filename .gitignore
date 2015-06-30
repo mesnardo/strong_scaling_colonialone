@@ -2,6 +2,7 @@
 .ipynb_checkpoints
 
 # ignore some simulation data
+**/0000*
 **/grid.txt
 **/iterationCount.txt
 **/performanceSummary.txt
