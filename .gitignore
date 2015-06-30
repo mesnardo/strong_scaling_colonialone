@@ -1,0 +1,8 @@
+# ignore ipython notebook checkpoints
+.ipynb_checkpoints
+
+# ignore some simulation data
+**/grid.txt
+**/iterationCount.txt
+**/performanceSummary.txt
+**/*.err
